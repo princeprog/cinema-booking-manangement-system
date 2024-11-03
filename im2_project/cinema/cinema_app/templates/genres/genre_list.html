@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Genres</title>
+</head>
+
+<body>
+<h2>Genres</h2>
+<a href="{% url 'genre_create' %}">Add Genre</a>
+<ul>
+    {% for genre in genres %}
+        <li>{{ genre.name }} - 
+            <a href="{% url 'genre_edit' genre.pk %}">Edit</a> | 
+            <a href="{% url 'genre_delete' genre.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

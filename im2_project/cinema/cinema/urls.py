@@ -16,8 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from cinema_app import views
+
+
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cinema/', include('cinema_app.urls')),
+    path('', views.home, name='home'),
+    
+    
 ]

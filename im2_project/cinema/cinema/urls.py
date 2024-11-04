@@ -25,7 +25,8 @@ from cinema_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cinema/', include('cinema_app.urls')),
-    path('', views.home, name='home'),
+    # path('', views.home, name='home'),
+    # path('home/', views.home, name='home'), 
     
     
 ]

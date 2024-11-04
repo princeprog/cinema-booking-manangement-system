@@ -3,8 +3,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from .models import Genre
 from .forms import GenreForm
+from django.shortcuts import render
 # Create your views here.
 
+def home(request):
+    return render(request, 'genres/base.html')
 
 def genre_list(request):
     genres = Genre.objects.all()

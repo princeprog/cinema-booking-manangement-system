@@ -1,0 +1,12 @@
+<h2>Branch List</h2>
+<ul>
+    {% for branch in branches %}
+        <li>{{ branch.branch_name }}
+            <a href="{% url 'branch_update' branch.pk %}">Edit</a>
+            <a href="{% url 'branch_delete' branch.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'branch_create' %}">Add New Branch</a>
+
+

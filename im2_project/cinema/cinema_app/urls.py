@@ -1,4 +1,4 @@
-from django.urls import path
+
 from django.urls import path
 from . import views
 
@@ -17,6 +17,17 @@ urlpatterns = [
     path('movies/<int:pk>/delete/', views.movie_delete, name='movie_delete'),
 
     # path('home/', views.home, name='home'), 
+
+    path('branches/', views.branch_list, name='branch_list'),
+    path('branches/new/', views.branch_create, name='branch_create'),
+    path('branches/<int:pk>/edit/', views.branch_update, name='branch_update'),
+    path('branches/<int:pk>/delete/', views.branch_delete, name='branch_delete'),
+
+    path('cinemas/', views.cinema_list, name='cinema_list'),
+    path('cinemas/new/', views.cinema_create, name='cinema_create'),
+
+    path('cinema_movies/', views.cinema_movie_list, name='cinema_movie_list'),
+    path('cinema_movies/new/', views.cinema_movie_create, name='cinema_movie_create'),
 ]
 
 

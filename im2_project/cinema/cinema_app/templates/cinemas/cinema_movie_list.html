@@ -1,0 +1,17 @@
+<!-- cinema_movie_list.html -->
+<h2>Cinema Movie List</h2>
+<ul>
+    {% for cinema_movie in cinema_movies %}
+        <li>
+            Movie: {{ cinema_movie.movie_ID.title }}<br>
+            Cinema: {{ cinema_movie.cinema_ID.cinema_name }}<br>
+            Branch: {{ cinema_movie.branch.branch_name }}<br>
+            Showtimes: {{ cinema_movie.showtimes }}
+            <br>
+            <a href="{% url 'cinema_movie_update' cinema_movie.pk %}">Edit</a>
+            <a href="{% url 'cinema_movie_delete' cinema_movie.pk %}">Delete</a>
+            <hr>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'cinema_movie_create' %}">Add New Cinema-Movie</a>

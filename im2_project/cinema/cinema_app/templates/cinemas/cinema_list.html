@@ -1,0 +1,12 @@
+<!-- cinema_list.html -->
+<h2>Cinema List</h2>
+<ul>
+    {% for cinema in cinemas %}
+        <li>
+            {{ cinema.cinema_name }} (Branch: {{ cinema.branch.branch_name }})
+            <a href="{% url 'cinema_update' cinema.pk %}">Edit</a>
+            <a href="{% url 'cinema_delete' cinema.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'cinema_create' %}">Add New Cinema</a>

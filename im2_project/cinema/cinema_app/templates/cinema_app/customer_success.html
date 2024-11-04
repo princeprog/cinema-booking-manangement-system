@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Success</title>
+</head>
+<body>
+    <h1>Customer List</h1>
+    <ul>
+        {% for customer in customers %}
+            <li>
+                ID: {{ customer.customer_id }} - {{ customer.firstname }} {{ customer.lastname }}
+                {% if customer.age %}
+                    - Age: {{ customer.age }}
+                {% endif %}
+                {% if customer.address %}
+                    - Address: {{ customer.address }}
+                {% endif %}
+                
+                {% if customer.customer_id %}
+                    <a href="{% url 'update_customer' customer_id=customer.customer_id %}">Edit</a>
+                    <a href="{% url 'delete_customer' customer_id=customer.customer_id %}">Delete</a>
+                {% else %}
+                    - ID not available
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_customer' %}">Add New Customer</a>
+</body>
+</html>
+
+
+

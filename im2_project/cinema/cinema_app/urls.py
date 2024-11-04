@@ -1,6 +1,8 @@
 
 from django.urls import path
 from . import views
+from .views import create_customer, customer_success, update_customer, delete_customer
+
 
 urlpatterns = [
     path('test/', views.test_view, name='test_view'),
@@ -28,6 +30,11 @@ urlpatterns = [
 
     path('cinema_movies/', views.cinema_movie_list, name='cinema_movie_list'),
     path('cinema_movies/new/', views.cinema_movie_create, name='cinema_movie_create'),
+
+    path('create-customer/', views.create_customer, name='create_customer'),
+    path('customer-success/', views.customer_success, name='customer_success'),
+    path('update-customer/<int:customer_id>/', views.update_customer, name='update_customer'),
+    path('delete-customer/<int:customer_id>/', views.delete_customer, name='delete_customer'),
 ]
 
 

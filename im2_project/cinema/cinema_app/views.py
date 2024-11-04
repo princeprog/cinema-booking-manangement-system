@@ -6,8 +6,8 @@ from .forms import GenreForm
 from django.shortcuts import render
 # Create your views here.
 
-def home(request):
-    return render(request, 'genres/base.html')
+def test_view(request):
+    return render(request, 'templates/base.html')
 
 def genre_list(request):
     genres = Genre.objects.all()

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer
+from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer,Booking
 
 class GenreForm(forms.ModelForm):
     class Meta:
@@ -34,3 +34,8 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['firstname', 'lastname', 'age', 'address']
+
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['cinema_movie_id', 'customer_id', 'seat_no', 'date', 'time']

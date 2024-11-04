@@ -10,6 +10,8 @@ from .models import Branch, Cinema, Cinema_Movie
 from .forms import BranchForm, CinemaForm, CinemaMovieForm
 from .models import Customer
 from .forms import CustomerForm
+from .models import Booking
+from .forms import BookingForm
 # Create your views here.
 
 def test_view(request):
@@ -187,3 +189,39 @@ def delete_customer(request, customer_id):
         customer.delete()
         return redirect('customer_success')
     return render(request, 'cinema_app/delete_customer.html', {'customer': customer})
+
+#Booking_views
+def booking_list(request):
+    bookings = Booking.objects.all()
+    return render(request, 'cinema_app/booking_list.html', {'bookings': bookings})
+
+# Create view
+def create_booking(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('booking_list')
+    else:
+        form = BookingForm()
+    return render(request, 'cinema_app/booking_form.html', {'form': form})
+
+# Update view
+def update_booking(request, booking_id):
+    booking = get_object_or_404(Booking, pk=booking_id)
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            return redirect('booking_list')
+    else:
+        form = BookingForm(instance=booking)
+    return render(request, 'cinema_app/booking_form.html', {'form': form})
+
+# Delete view
+def delete_booking(request, booking_id):
+    booking = get_object_or_404(Booking, pk=booking_id)
+    if request.method == 'POST':
+        booking.delete()
+        return redirect('booking_list')
+    return render(request, 'booking/booking_delete.html', {'booking': booking})

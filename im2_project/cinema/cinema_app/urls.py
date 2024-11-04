@@ -31,10 +31,17 @@ urlpatterns = [
     path('cinema_movies/', views.cinema_movie_list, name='cinema_movie_list'),
     path('cinema_movies/new/', views.cinema_movie_create, name='cinema_movie_create'),
 
+    #path for customer display delete update read
     path('create-customer/', views.create_customer, name='create_customer'),
     path('customer-success/', views.customer_success, name='customer_success'),
     path('update-customer/<int:customer_id>/', views.update_customer, name='update_customer'),
     path('delete-customer/<int:customer_id>/', views.delete_customer, name='delete_customer'),
+
+    #path for booking
+    path('bookings/', views.booking_list, name='booking_list'),                
+    path('bookings/create/', views.create_booking, name='create_booking'),      
+    path('bookings/<int:booking_id>/update/', views.update_booking, name='update_booking'),  
+    path('bookings/<int:booking_id>/delete/', views.delete_booking, name='delete_booking'),  
 ]
 
 

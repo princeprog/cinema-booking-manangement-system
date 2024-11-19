@@ -1,0 +1,111 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #141414; /* Netflix dark background */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: #e50914; /* Netflix red */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Customer List */
+.customer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.customer-item {
+    background-color: #222;
+    border: 1px solid #333;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.customer-item:hover {
+    background-color: #333;
+    transform: scale(1.02);
+}
+
+.customer-item span {
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+/* Buttons */
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #1f80e0;
+}
+
+.edit-btn:hover {
+    background-color: #3ea6ff;
+}
+
+.delete-btn {
+    background-color: #e50914;
+}
+
+.delete-btn:hover {
+    background-color: #f40612;
+}
+
+.add-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #e50914;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background-color: #f40612;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .customer-item {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .actions {
+        justify-content: flex-start;
+    }
+}

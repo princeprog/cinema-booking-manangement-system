@@ -1,7 +1,7 @@
 
 from django.urls import path
 from . import views
-from .views import create_customer, customer_success, update_customer, delete_customer
+from .views import customer_success, update_customer, delete_customer
 
 
 urlpatterns = [
@@ -32,7 +32,7 @@ urlpatterns = [
     path('cinema_movies/new/', views.cinema_movie_create, name='cinema_movie_create'),
 
     #path for customer display delete update read
-    path('create-customer/', views.create_customer, name='create_customer'),
+    path('signup/', views.signup_view, name='signup'),
     path('customer-success/', views.customer_success, name='customer_success'),
     path('update-customer/<int:customer_id>/', views.update_customer, name='update_customer'),
     path('delete-customer/<int:customer_id>/', views.delete_customer, name='delete_customer'),
@@ -43,7 +43,7 @@ urlpatterns = [
     path('bookings/<int:booking_id>/update/', views.update_booking, name='update_booking'),  
     path('bookings/<int:booking_id>/delete/', views.delete_booking, name='delete_booking'),  
 
-    path('signup/', views.signupform, name='signupform'),
+    path('signup/', views.signup_view ,name='signupform'),
 ]
 
 

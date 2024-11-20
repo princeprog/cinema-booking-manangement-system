@@ -29,13 +29,20 @@ class CinemaMovieForm(forms.ModelForm):
         model = Cinema_Movie
         fields = ['movie_ID', 'cinema_ID', 'showtimes', 'branch']
 
-
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['firstname', 'lastname', 'age', 'address']
+        fields = ['firstname', 'lastname', 'username', 'password', 'age', 'address']  # Include all fields
+        widgets = {
+            'password': forms.PasswordInput(attrs={'placeholder': 'Password'}),
+            'age': forms.NumberInput(attrs={'placeholder': 'Age', 'min': 0}),
+            'address': forms.TextInput(attrs={'placeholder': 'Address'}),
+        }
+
+
 
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ['cinema_movie_id', 'customer_id', 'seat_no', 'date', 'time']
+

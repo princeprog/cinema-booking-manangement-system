@@ -12,7 +12,7 @@ from .models import Customer
 from .forms import CustomerForm
 from .models import Booking
 from .forms import BookingForm
-from django.shortcuts import render
+
 # Create your views here.
 
 def test_view(request):
@@ -154,17 +154,19 @@ def cinema_movie_create(request):
         form = CinemaMovieForm()
     return render(request, 'cinemas/cinema_movie_form.html', {'form': form})
 
-
-def create_customer(request):
-    if request.method == "POST":
+#sign up view
+def signup_view(request):
+    if request.method == 'POST':
         form = CustomerForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('customer_success') 
+            customer = form.save(commit=False)
+            customer.password = form.cleaned_data['password']  
+            customer.save()
+            return redirect('success')  
     else:
         form = CustomerForm()
-    
-    return render(request, 'cinema_app/create_customer.html', {'form': form})
+    return render(request, 'user-side/signupform.html', {'form': form})
+
 
 
 def customer_success(request):
@@ -227,9 +229,7 @@ def delete_booking(request, booking_id):
         return redirect('booking_list')
     return render(request, 'booking/booking_delete.html', {'booking': booking})
 
-# user side
-def signupform(request):
-    return render(request, 'user-side/signupform.html')
+
 
   
 

@@ -43,7 +43,9 @@ urlpatterns = [
     path('bookings/<int:booking_id>/update/', views.update_booking, name='update_booking'),  
     path('bookings/<int:booking_id>/delete/', views.delete_booking, name='delete_booking'),  
 
+    #user side
     path('signup/', views.signup_view ,name='signupform'),
+    path('login/', views.login_view, name='loginform'),
 ]
 
 

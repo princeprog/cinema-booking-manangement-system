@@ -12,6 +12,7 @@ from .models import Customer
 from .forms import CustomerForm
 from .models import Booking
 from .forms import BookingForm
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -228,6 +229,10 @@ def delete_booking(request, booking_id):
         booking.delete()
         return redirect('booking_list')
     return render(request, 'booking/booking_delete.html', {'booking': booking})
+
+#login view
+def login_view(request):
+    return render(request, 'user-side/login.html')
 
 
 

@@ -163,7 +163,7 @@ def signup_view(request):
             customer = form.save(commit=False)
             customer.password = form.cleaned_data['password']  
             customer.save()
-            return redirect('success')  
+            return redirect('loginform')  
     else:
         form = CustomerForm()
     return render(request, 'user-side/signupform.html', {'form': form})

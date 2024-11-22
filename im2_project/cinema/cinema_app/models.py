@@ -34,14 +34,15 @@ class Cinema_Movie(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE, null=True)
 
 class Customer(models.Model):
-    username = models.CharField(max_length=150, primary_key=True)  
+    customer_id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=150, default='defaultusername')  
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     age = models.PositiveBigIntegerField()
     address = models.CharField(max_length=255)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128, default='defaultpassword')   
 
-class Seats(models.Model):
+class Seats(models.Model):  
     seat_no = models.AutoField(primary_key=True)
 
 class Booking(models.Model):

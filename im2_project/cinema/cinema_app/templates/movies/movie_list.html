@@ -3,8 +3,85 @@
 {% block title %}Movies{% endblock %}
 
 {% block content %}
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1c1e1e;
+        color: #ffffff;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: #ffa500;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    a {
+        color: #ffa500;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #e69500;
+        text-decoration: underline;
+    }
+
+    .add-new {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #ffa500;
+        color: #1c1e1e;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        max-width: 200px;
+    }
+
+    .add-new:hover {
+        background-color: #e69500;
+        color: #ffffff;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+
+    li {
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #2b2b2b;
+        border: 1px solid #333;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    li:hover {
+        background-color: #4b4726;
+    }
+
+    li a {
+        display: block;
+        color: #ffa500;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        color: #e69500;
+    }
+</style>
+
 <h2>Movies</h2>
-<a href="{% url 'movie_create' %}">Add New Movie</a>
+<a class="add-new" href="{% url 'movie_create' %}">Add New Movie</a>
 <ul>
     {% for movie in movies %}
         <li>

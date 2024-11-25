@@ -1,6 +1,86 @@
-<h2>{{ form.instance.pk|default:"New" }} Branch</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form.instance.pk|default:"New" }} Branch</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1e1e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 90%;
+            background-color: #2b2b2b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #ffa500;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #1c1e1e;
+            border: 1px solid #4b4726;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        form input::placeholder, form textarea::placeholder {
+            color: #aaa;
+        }
+
+        button[type="submit"] {
+            padding: 10px 15px;
+            font-size: 1rem;
+            background-color: #ffa500;
+            color: #1c1e1e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #e69500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ form.instance.pk|default:"New" }} Branch</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
     <div class="container">
         <div class="image-section">
             <h1>CINECITY</h1>
-            <img src="{% static 'images/3d_glasses.png' %}" alt="3D Glasses">
+            <img src="{% static 'assets/bglanding.png' %}" alt="3D Glasses">
         </div>
 
         
@@ -28,7 +29,7 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                 </div>
-                <button type="submit" class="login-btn">LOGIN</button>
+                <button type="submit" class="login-btn"><a href="{% url 'home_page' %}">LOGIN</a></button>
                 <a href="#" class="forgot-password">Forgot password?</a>
             </form>
         </div>

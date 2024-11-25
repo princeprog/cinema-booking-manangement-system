@@ -3,13 +3,90 @@
 {% block title %}Genres{% endblock %}
 
 {% block content %}
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1c1e1e;
+        color: #ffffff;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: #ffa500;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #ffa500;
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: #e69500;
+    }
+
+    .add-genre {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        color: #fff;
+        background-color: #4b4726;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .add-genre:hover {
+        background-color: #ffa500;
+        color: #1c1e1e;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #2b2b2b;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .genre-actions a {
+        margin: 0 5px;
+    }
+
+    .genre-actions a:first-child {
+        color: #ffa500;
+    }
+
+    .genre-actions a:last-child {
+        color: #e74c3c;
+    }
+
+    .genre-actions a:last-child:hover {
+        color: #c0392b;
+    }
+</style>
+
 <h2>Genres</h2>
-<a href="{% url 'genre_create' %}">Add Genre</a>
+<a href="{% url 'genre_create' %}" class="add-genre">Add Genre</a>
 <ul>
     {% for genre in genres %}
-        <li>{{ genre.name }} - 
-            <a href="{% url 'genre_update' genre.pk %}">Edit</a> | 
-            <a href="{% url 'genre_delete' genre.pk %}">Delete</a>
+        <li>
+            <span>{{ genre.name }}</span>
+            <span class="genre-actions">
+                <a href="{% url 'genre_update' genre.pk %}">Edit</a> | 
+                <a href="{% url 'genre_delete' genre.pk %}">Delete</a>
+            </span>
         </li>
     {% endfor %}
 </ul>

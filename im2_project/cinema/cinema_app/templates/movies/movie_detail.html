@@ -3,15 +3,89 @@
 {% block title %}Movie Details{% endblock %}
 
 {% block content %}
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1c1e1e;
+        color: #ffffff;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: #ffa500;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 1.1rem;
+        margin: 10px 0;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    p strong {
+        color: #ffa500;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    a, button {
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    a {
+        color: #fff;
+        background-color: #4b4726;
+        border: 1px solid #4b4726;
+    }
+
+    a:hover {
+        background-color: #e69500;
+        border-color: #e69500;
+        color: #1c1e1e;
+    }
+
+    button {
+        background-color: #ffa500;
+        color: #1c1e1e;
+        border: none;
+    }
+
+    button:hover {
+        background-color: #e69500;
+        color: #ffffff;
+    }
+
+    form {
+        display: inline;
+    }
+
+    .back-link {
+        margin-top: 20px;
+        display: inline-block;
+    }
+</style>
+
 <h2>{{ movie.title }}</h2>
 <p><strong>Duration:</strong> {{ movie.duration }} minutes</p>
 <p><strong>Description:</strong> {{ movie.description }}</p>
 <p><strong>Genre:</strong> {{ movie.genre.name }}</p>
 
-<a href="{% url 'movie_update' movie.pk %}">Edit</a>
-<form action="{% url 'movie_delete' movie.pk %}" method="post" style="display:inline;">
-    {% csrf_token %}
-    <button type="submit">Delete</button>
-</form>
-<a href="{% url 'movie_list' %}">Back to Movies</a>
+<div class="actions">
+    <a href="{% url 'movie_update' movie.pk %}">Edit</a>
+    <a href="{% url 'movie_delete' movie.pk %}">Delete</a>
+    
+    <a href="{% url 'movie_list' %}" class="back-link">Back to Movies</a>
+</div>
 {% endblock %}

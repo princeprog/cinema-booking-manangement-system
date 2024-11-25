@@ -2,6 +2,8 @@
 from django.urls import path
 from . import views
 from .views import customer_success, update_customer, delete_customer
+from .views import landing_page
+from .views import home_page
 
 
 urlpatterns = [
@@ -46,6 +48,8 @@ urlpatterns = [
     #user side
     path('signup/', views.signup_view ,name='signupform'),
     path('login/', views.login_view, name='loginform'),
+    path('', views.landing_page, name='landing_page'),
+    path('home/', views.home_page, name='home_page')
 ]
 
 

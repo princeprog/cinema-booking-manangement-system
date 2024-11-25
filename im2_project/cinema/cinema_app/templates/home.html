@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1e1e;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #2b2b2b;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #ffffff;
+            padding: 10px 15px;
+            background-color: #4b4726;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #6e6b46;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #2b2b2b;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        main h2 {
+            font-size: 2rem;
+            color: #ffa500;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        main p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        ul a {
+            color: #ffa500;
+            text-decoration: none;
+        }
+
+        ul a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2b2b2b;
+            color: #ffffff;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer .logout-btn {
+            background-color: #d9534f;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        footer .logout-btn:hover {
+            background-color: #c9302c;
+        }
+
+        span {
+            color: #ffa500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>C</span>ine<span>C</span>ity</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'landing_page' %}">Home</a></li>
+                <li><a href="{% url 'genre_list' %}">Genres</a></li>
+                <li><a href="{% url 'movie_list' %}">Movies</a></li>
+                <li><a href="{% url 'branch_list' %}">Branches</a></li>
+                <li><a href="{% url 'booking_list' %}">Bookings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>About the System</h2>
+        <p>
+            Our Cinema Management System is a powerful tool for managing genres, movies, branches, bookings, and customers effortlessly. Navigate through the options above to explore and manage the various features of the system.
+        </p>
+
+        <h2>Quick Actions</h2>
+        <ul>
+            <li><a href="{% url 'genre_create' %}">Add a New Genre</a></li>
+            <li><a href="{% url 'movie_create' %}">Add a New Movie</a></li>
+            <li><a href="{% url 'create_booking' %}">Create a New Booking</a></li>
+            <li><a href="{% url 'customer_success' %}">Manage Customers</a></li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cinema Management System. All rights reserved.</p>
+        <a href="{% url 'landing_page' %}" class="logout-btn">Log Out</a>
+    </footer>
+</body>
+</html>

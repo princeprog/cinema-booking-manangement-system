@@ -4,8 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Branch List</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/branch.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1e1e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background-color: #2b2b2b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #ffa500;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #333;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul li:hover {
+            background-color: #444;
+        }
+
+        .branch-links a {
+            text-decoration: none;
+            color: #eeece8;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .branch-links a:hover {
+            text-decoration: underline;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ffa500;
+            color: #1c1e1e;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #e69500;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,6 +93,7 @@
             {% endfor %}
         </ul>
         <a href="{% url 'branch_create' %}">Add New Branch</a>
+        <a href="{% url 'home_page' %}">Return</a>
     </div>
 </body>
 </html>

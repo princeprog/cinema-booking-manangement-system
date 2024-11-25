@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1e1e;
+            color: #1d1b1b;
+            height: 100%;
+            width: 100%;
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            overflow-y: hidden; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('{% static "assets/bglanding.jpg" %}') center/cover no-repeat;
+            height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 1.0), rgba(0, 0, 0, 0));
+            padding: 10px 20px; /* Optional: for some inner spacing */
+            height: 100px;
+        }
+
+        .navbar .logo {
+            font-size: 2.0rem;
+            color: white;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .navbar .logo span {
+            color: #ffa500;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .nav-links li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links li a:hover {
+            color: #ffa500;
+        }
+
+        .navbar .sign-up-btn {
+            background-color: #ffa500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .navbar .sign-up-btn:hover {
+            background-color: #e69500;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            display: flex;
+            justify-content: space-between; /* Distribute content in two halves */
+            align-items: center; /* Center content vertically */
+            width: 70%; /* Ensure the hero content takes the full width */
+            padding: 0 20px; /* Optional: Adds some padding for spacing */
+        }
+
+        .left-half {
+            width: 50%; /* Left half takes up 50% of the space */
+            text-align: left; /* Align text to the left */
+        }
+
+        .right-half {
+            width: 50%; /* Right half takes up 50% of the space */
+            text-align: left; /* Align text to the left */
+            display: flex;
+            flex-direction: column; /* Stack the paragraph and select dropdown vertically */
+            justify-content: flex-start; /* Align items to the top of the right half */
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: #ffa500;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 10px; /* Reduced margin for closer positioning */
+            line-height: 1.5;
+            max-width: 600px; /* Optional: Limits the width of the paragraph */
+        }
+
+        .cinema-select {
+            font-size: 1rem;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #ffffff;
+            cursor: pointer;
+            margin-top: 20px; /* Adds spacing between the paragraph and select dropdown */
+            border: 2px solid #ffffff; 
+        }
+
+    </style>
+</head>
+<body>
+    <header class="hero-section">
+        <nav class="navbar">
+            <div class="logo"><span>C</span>ine<span>C</span>ity</div>
+            <ul class="nav-links">
+                <li><a href="">Home</a></li>
+                <li><a href="{% url 'movie_list' %}">Showtimes</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+            <button class="sign-up-btn"><a href="{% url 'signupform' %}">Sign Up Now!</a></button>
+        </nav>
+        <div class="hero-content">
+            <div class="left-half">
+                <h1>Amazing <br> Movie <br> Dates</h1>
+            </div>
+            <div class="right-half">
+                <p>Your One-Stop Ticket to the Best Showtimes, <br> Reservations, <br> and Cinema Updates in Cebu!</p>
+                <select class="cinema-select">
+                    <option value="all">All Cinemas</option>
+                    <option value="cinema1">Cinema 1</option>
+                    <option value="cinema2">Cinema 2</option>
+                    <option value="cinema3">Cinema 3</option>
+                </select>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

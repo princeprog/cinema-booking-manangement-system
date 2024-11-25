@@ -19,6 +19,12 @@ from django.shortcuts import render
 def test_view(request):
     return render(request, 'templates/base.html')
 
+def home_page(request):
+    return render(request, 'home.html')
+
+def landing_page(request):
+    return render(request, 'landing.html')
+
 def genre_list(request):
     genres = Genre.objects.all()
     return render(request, 'genres/genre_list.html', {'genres': genres})

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Admin</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="{% url 'movie_list' %}">Movies</a>
+        <a href="{% url 'cinema_list' %}">Cinemas</a>
+        <a href="{% url 'branch_list' %}">Branches</a>
+    </div>
+    <div class="content">
+        <h2>Movies</h2>
+        <a class="btn btn-primary" href="{% url 'movie_create' %}">Add New Movie</a>
+        <ul class="list-group mt-3">
+            {% for movie in movies %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="movie-detail-link" data-toggle="modal" data-target="#movieDetailModal" data-id="{{ movie.pk }}">{{ movie.title }}</a>
+                    <div>
+                        <a class="btn btn-sm btn-warning" href="{% url 'movie_update' movie.pk %}">Update</a>
+                        <form method="post" action="{% url 'movie_delete' movie.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="movieDetailModal" tabindex="-1" role="dialog" aria-labelledby="movieDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="movieDetailModalLabel">Movie Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="movie-title"></h4>
+                    <p><strong>Duration:</strong> <span id="movie-duration"></span> minutes</p>
+                    <p><strong>Description:</strong> <span id="movie-description"></span></p>
+                    <p><strong>Genre:</strong> <span id="movie-genre"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.movie-detail-link').on('click', function() {
+                var movieId = $(this).data('id');
+                $.ajax({
+                    url: '{% url "movie_detail" 0 %}'.replace('0', movieId),
+                    method: 'GET',
+                    success: function(data) {
+                        $('#movie-title').text(data.title);
+                        $('#movie-duration').text(data.duration);
+                        $('#movie-description').text(data.description);
+                        $('#movie-genre').text(data.genre);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -5,6 +5,37 @@ from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer, Bookin
 from .forms import GenreForm, MovieForm, BranchForm, CinemaForm, CinemaMovieForm, CustomerForm, BookingForm
 
 # Create your views here.
+def branch_list(request):
+    branches = Branch.objects.all()
+    return render(request, 'branch/branch_list.html', {'branches': branches})
+
+def branch_create(request):
+    if request.method == 'POST':
+        form = BranchForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('branch_list')
+    else:
+        form = BranchForm()
+    return render(request, 'branch/branch_form.html', {'form': form})
+
+def branch_update(request, pk):
+    branch = get_object_or_404(Branch, pk=pk)
+    if request.method == 'POST':
+        form = BranchForm(request.POST, instance=branch)
+        if form.is_valid():
+            form.save()
+            return redirect('branch_list')
+    else:
+        form = BranchForm(instance=branch)
+    return render(request, 'branch/branch_form.html', {'form': form})
+
+def branch_delete(request, pk):
+    branch = get_object_or_404(Branch, pk=pk)
+    if request.method == 'POST':
+        branch.delete()
+        return redirect('branch_list')
+    return render(request, 'branch/branch_confirm_delete.html', {'branch': branch})
 
 def test_view(request):
     return render(request, 'templates/base.html')
@@ -95,38 +126,6 @@ def movie_delete(request, pk):
         return redirect('movie_list')
     return render(request, 'admin/movies_admin.html', {'movie': movie})
 
-def branch_list(request):
-    branches = Branch.objects.all()
-    return render(request, 'branch/branch_list.html', {'branches': branches})
-
-def branch_create(request):
-    if request.method == 'POST':
-        form = BranchForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('branch_list')
-    else:
-        form = BranchForm()
-    return render(request, 'branch/branch_form.html', {'form': form})
-
-def branch_update(request, pk):
-    branch = get_object_or_404(Branch, pk=pk)
-    if request.method == 'POST':
-        form = BranchForm(request.POST, instance=branch)
-        if form.is_valid():
-            form.save()
-            return redirect('branch_list')
-    else:
-        form = BranchForm(instance=branch)
-    return render(request, 'branch/branch_form.html', {'form': form})
-
-def branch_delete(request, pk):
-    branch = get_object_or_404(Branch, pk=pk)
-    if request.method == 'POST':
-        branch.delete()
-        return redirect('branch_list')
-    return render(request, 'branch/branch_confirm_delete.html', {'branch': branch})
-
 def cinema_list(request):
     cinemas = Cinema.objects.all()
     return render(request, 'cinemas/cinema_list.html', {'cinemas': cinemas})
@@ -139,7 +138,35 @@ def cinema_create(request):
             return redirect('cinema_list')
     else:
         form = CinemaForm()
-    return render(request, 'cinemas/cinema_form.html', {'form': form})
+    branches = Branch.objects.all()
+    return render(request, 'cinemas/cinema_form.html', {'form': form, 'branches': branches})
+
+def cinema_update(request, pk):
+    cinema = get_object_or_404(Cinema, pk=pk)
+    if request.method == 'POST':
+        form = CinemaForm(request.POST, instance=cinema)
+        if form.is_valid():
+            form.save()
+            return redirect('cinema_list')
+    else:
+        form = CinemaForm(instance=cinema)
+    branches = Branch.objects.all()
+    return render(request, 'cinemas/cinema_form.html', {'form': form, 'branches': branches})
+
+def cinema_delete(request, pk):
+    cinema = get_object_or_404(Cinema, pk=pk)
+    if request.method == 'POST':
+        cinema.delete()
+        return redirect('cinema_list')
+    return render(request, 'cinemas/cinema_confirm_delete.html', {'cinema': cinema})
+
+def cinema_detail(request, pk):
+    cinema = get_object_or_404(Cinema, pk=pk)
+    data = {
+        'cinema_name': cinema.cinema_name,
+        'branch': cinema.branch.branch_name,
+    }
+    return JsonResponse(data)
 
 # Cinema_Movie Views
 def cinema_movie_list(request):

@@ -15,13 +15,18 @@ urlpatterns = [
     path('movies/<int:pk>/edit/', views.movie_update, name='movie_update'),
     path('movies/<int:pk>/delete/', views.movie_delete, name='movie_delete'),
 
+    # URL patterns for cinemas
+    path('cinemas/', views.cinema_list, name='cinema_list'),
+    path('cinemas/new/', views.cinema_create, name='cinema_create'),
+    path('cinemas/<int:pk>/edit/', views.cinema_update, name='cinema_update'),
+    path('cinemas/<int:pk>/delete/', views.cinema_delete, name='cinema_delete'),
+    path('cinemas/<int:pk>/', views.cinema_detail, name='cinema_detail'),
+
+    # URL patterns for branches
     path('branches/', views.branch_list, name='branch_list'),
     path('branches/new/', views.branch_create, name='branch_create'),
     path('branches/<int:pk>/edit/', views.branch_update, name='branch_update'),
     path('branches/<int:pk>/delete/', views.branch_delete, name='branch_delete'),
-
-    path('cinemas/', views.cinema_list, name='cinema_list'),
-    path('cinemas/new/', views.cinema_create, name='cinema_create'),
 
     path('cinema_movies/', views.cinema_movie_list, name='cinema_movie_list'),
     path('cinema_movies/new/', views.cinema_movie_create, name='cinema_movie_create'),

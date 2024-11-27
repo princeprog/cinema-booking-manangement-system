@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Admin Dashboard{% endblock %}</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Delete Cinema Movie</title>
+    <link href="https://stackpath.bootstrap.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -29,6 +29,15 @@
             flex-grow: 1;
             padding: 20px;
         }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #2b2b2b;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -41,13 +50,19 @@
         <a href="{% url 'cinema_movie_list' %}">Showtime</a>
     </div>
     <div class="content">
-        {% block content %}
-        <!-- Content will be injected here -->
-        {% endblock %}
+        <div class="container">
+            <h2>Delete Cinema Movie</h2>
+            <p>Are you sure you want to delete "{{ cinema_movie.movie_ID.title }} at {{ cinema_movie.cinema_ID.cinema_name }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Confirm</button>
+                <a href="{% url 'cinema_movie_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

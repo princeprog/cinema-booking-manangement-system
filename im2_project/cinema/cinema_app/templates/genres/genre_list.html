@@ -1,93 +1,66 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genres</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="{% url 'movie_list' %}">Movies</a>
+        <a href="{% url 'cinema_list' %}">Cinemas</a>
+        <a href="{% url 'branch_list' %}">Branches</a>
+        <a href="{% url 'genre_list' %}">Genres</a>
+        <a href="{% url 'cinema_movie_list' %}">Showtime</a>
+    </div>
+    <div class="content">
+        <h2>Genres</h2>
+        <a href="{% url 'genre_create' %}" class="btn btn-primary">Add Genre</a>
+        <ul class="list-group mt-3">
+            {% for genre in genres %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ genre.name }}</span>
+                    <span>
+                        <a href="{% url 'genre_update' genre.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                        <form method="post" action="{% url 'genre_delete' genre.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-{% block title %}Genres{% endblock %}
-
-{% block content %}
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #1c1e1e;
-        color: #ffffff;
-    }
-
-    h2 {
-        font-size: 2rem;
-        color: #ffa500;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    a {
-        text-decoration: none;
-        color: #ffa500;
-        font-weight: bold;
-    }
-
-    a:hover {
-        color: #e69500;
-    }
-
-    .add-genre {
-        display: inline-block;
-        margin-bottom: 20px;
-        padding: 10px 20px;
-        font-size: 1.1rem;
-        color: #fff;
-        background-color: #4b4726;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-
-    .add-genre:hover {
-        background-color: #ffa500;
-        color: #1c1e1e;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    li {
-        margin: 10px 0;
-        padding: 10px;
-        background-color: #2b2b2b;
-        border-radius: 5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .genre-actions a {
-        margin: 0 5px;
-    }
-
-    .genre-actions a:first-child {
-        color: #ffa500;
-    }
-
-    .genre-actions a:last-child {
-        color: #e74c3c;
-    }
-
-    .genre-actions a:last-child:hover {
-        color: #c0392b;
-    }
-</style>
-
-<h2>Genres</h2>
-<a href="{% url 'genre_create' %}" class="add-genre">Add Genre</a>
-<ul>
-    {% for genre in genres %}
-        <li>
-            <span>{{ genre.name }}</span>
-            <span class="genre-actions">
-                <a href="{% url 'genre_update' genre.pk %}">Edit</a> | 
-                <a href="{% url 'genre_delete' genre.pk %}">Delete</a>
-            </span>
-        </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

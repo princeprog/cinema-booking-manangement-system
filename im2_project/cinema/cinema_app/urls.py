@@ -28,8 +28,11 @@ urlpatterns = [
     path('branches/<int:pk>/edit/', views.branch_update, name='branch_update'),
     path('branches/<int:pk>/delete/', views.branch_delete, name='branch_delete'),
 
+    # URL patterns for cinema movies
     path('cinema_movies/', views.cinema_movie_list, name='cinema_movie_list'),
     path('cinema_movies/new/', views.cinema_movie_create, name='cinema_movie_create'),
+    path('cinema_movies/<int:pk>/edit/', views.cinema_movie_update, name='cinema_movie_update'),
+    path('cinema_movies/<int:pk>/delete/', views.cinema_movie_delete, name='cinema_movie_delete'),
 
     # Paths for customer display, delete, update, read
     path('signup/', views.signup_view, name='signup'),

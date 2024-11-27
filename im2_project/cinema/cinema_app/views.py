@@ -181,7 +181,28 @@ def cinema_movie_create(request):
             return redirect('cinema_movie_list')
     else:
         form = CinemaMovieForm()
-    return render(request, 'cinemas/cinema_movie_form.html', {'form': form})
+    movies = Movie.objects.all()
+    cinemas = Cinema.objects.all()
+    return render(request, 'cinemas/cinema_movie_form.html', {'form': form, 'movies': movies, 'cinemas': cinemas})
+
+def cinema_movie_update(request, pk):
+    cinema_movie = get_object_or_404(Cinema_Movie, pk=pk)
+    if request.method == 'POST':
+        form = CinemaMovieForm(request.POST, instance=cinema_movie)
+        if form.is_valid():
+            form.save()
+            return redirect('cinema_movie_list')
+    else:
+        form = CinemaMovieForm(instance=cinema_movie)
+    movies = Movie.objects.all()
+    cinemas = Cinema.objects.all()
+    return render(request, 'cinemas/cinema_movie_form.html', {'form': form, 'movies': movies, 'cinemas': cinemas})
+def cinema_movie_delete(request, pk):
+    cinema_movie = get_object_or_404(Cinema_Movie, pk=pk)
+    if request.method == 'POST':
+        cinema_movie.delete()
+        return redirect('cinema_movie_list')
+    return render(request, 'cinemas/cinema_movie_confirm_delete.html', {'cinema_movie': cinema_movie})
 
 # Sign up view
 def signup_view(request):

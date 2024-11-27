@@ -1,7 +1,89 @@
-<!-- cinema_movie_form.html -->
-<h2>{{ form.instance.pk|default:"New" }} Cinema-Movie</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add/Edit Cinema Movie</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="{% url 'movie_list' %}">Movies</a>
+        <a href="{% url 'cinema_list' %}">Cinemas</a>
+        <a href="{% url 'branch_list' %}">Branches</a>
+        <a href="{% url 'genre_list' %}">Genres</a>
+        <a href="{% url 'cinema_movie_list' %}">Showtime</a>
+    </div>
+    <div class="content">
+        <h2>Add / Edit Cinema Movie</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="movie_ID">Movie</label>
+                {{ form.movie_ID }}
+                {% if form.movie_ID.errors %}
+                    <div class="text-danger">
+                        {% for error in form.movie_ID.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="cinema_ID">Cinema</label>
+                {{ form.cinema_ID }}
+                {% if form.cinema_ID.errors %}
+                    <div class="text-danger">
+                        {% for error in form.cinema_ID.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="showtimes">Showtimes</label>
+                {{ form.showtimes }}
+                {% if form.showtimes.errors %}
+                    <div class="text-danger">
+                        {% for error in form.showtimes.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'cinema_movie_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -4,8 +4,8 @@
     {% for cinema in cinemas %}
         <li>
             {{ cinema.cinema_name }} (Branch: {{ cinema.branch.branch_name }})
-            <a href="{% url 'cinema_update' cinema.pk %}">Edit</a>
-            <a href="{% url 'cinema_delete' cinema.pk %}">Delete</a>
+            
+            
         </li>
     {% endfor %}
 </ul>

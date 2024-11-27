@@ -230,3 +230,12 @@ def delete_booking(request, booking_id):
 # Login view
 def login_view(request):
     return render(request, 'user-side/login.html')
+
+#  Showtimes/User side
+def showtime(request):
+    cinema_movies = Cinema_Movie.objects.all()
+    return render(request, 'user-side/showtimes.html', {'cinema_movies': cinema_movies})
+
+# Book now User Side
+def booknow(request):
+    return render(request, 'user-side/booknow.html')

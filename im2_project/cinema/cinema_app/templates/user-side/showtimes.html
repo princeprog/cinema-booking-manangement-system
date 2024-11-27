@@ -1,0 +1,151 @@
+<h2>Showtimes</h2>
+<div class="card-container">
+    {% for cinema_movie in cinema_movies %}
+        <div class="card">
+            <h3>Movie: {{ cinema_movie.movie_ID.title }}</h3>
+            <p>Cinema: {{ cinema_movie.cinema_ID.cinema_name }}</p>
+            <p>Branch: {{ cinema_movie.branch.branch_name }}</p>
+            <p>Showtimes: {{ cinema_movie.showtimes }}</p>
+            <button class="book-now-btn"><a href="{% url 'booknow' %}">Book Now</a></button>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1c1e1e;
+        color: #ffffff;
+    }
+
+    header {
+        background-color: #2b2b2b;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+        color: #ffffff;
+        margin: 0;
+    }
+
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    nav a {
+        text-decoration: none;
+        font-size: 1rem;
+        color: #ffffff;
+        padding: 10px 15px;
+        background-color: #4b4726;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    nav a:hover {
+        background-color: #6e6b46;
+    }
+
+    main {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #2b2b2b;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    main h2 {
+        font-size: 2rem;
+        color: #ffa500;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    main p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .card {
+        background-color: #2b2b2b;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        width: 300px;
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card h3 {
+        font-size: 1.5rem;
+        color: #ffa500;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+    .book-now-btn {
+        background-color: #ffa500;
+        color: #1c1e1e;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .book-now-btn:hover {
+        background-color: #ffb732;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #2b2b2b;
+        color: #ffffff;
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    footer .logout-btn {
+        background-color: #d9534f;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    footer .logout-btn:hover {
+        background-color: #c9302c;
+    }
+
+    span {
+        color: #ffa500;
+    }
+</style>

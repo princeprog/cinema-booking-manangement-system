@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if booking.pk %}Update{% else %}Book{% endif %} Now</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1e1e;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #ffa500;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #2b2b2b;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        form p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .save-btn {
+            background-color: #ffa500;
+            color: #1c1e1e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .save-btn:hover {
+            background-color: #ffb732;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #ffa500;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>{% if booking.pk %}Update{% else %}Book{% endif %} Now</h1>
+    <form method="post" action="{% if booking.pk %}{% url 'update_booking' booking.pk %}{% else %}{% url 'create_booking' %}{% endif %}">
+        {% csrf_token %}
+        <p>
+            <label for="cinema_movie_id">Cinema Movie:</label>
+            <input type="text" id="cinema_movie_id" name="cinema_movie_id" value="{{ booking.cinema_movie_id }}">
+        </p>
+        <p>
+            <label for="customer_id">Customer:</label>
+            <input type="text" id="customer_id" name="customer_id" value="{{ booking.customer_id }}">
+        </p>
+        <p>
+            <label for="seat_no">Seat No:</label>
+            <input type="text" id="seat_no" name="seat_no" value="{{ booking.seat_no }}">
+        </p>
+        <p>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" value="{{ booking.date }}">
+        </p>
+        <p>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" value="{{ booking.time }}">
+        </p>
+        <button type="submit" class="save-btn">Save</button>
+    </form>
+    <a href="{% url 'showtime' %}" class="back-link">Back to Show Times</a>
+</body>
+</html>

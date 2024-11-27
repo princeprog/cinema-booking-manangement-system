@@ -1,14 +1,77 @@
-<h2>Showtimes</h2>
+{% load static %}
+<nav class="navbar">
+    <div class="logo"><span>C</span>ine<span>C</span>ity</div>
+    <ul class="nav-links">
+        <li><a href="">Home</a></li>
+        <li><a href="{% url 'showtime' %}">Showtimes</a></li>
+        <li><a href="#">About Us</a></li>
+    </ul>
+    <button class="sign-up-btn"><a href="{% url 'loginform' %}">Log out</a></button>
+</nav>
 <div class="card-container">
     {% for cinema_movie in cinema_movies %}
         <div class="card">
             <h3>Movie: {{ cinema_movie.movie_ID.title }}</h3>
             <p>Cinema: {{ cinema_movie.cinema_ID.cinema_name }}</p>
-            <p>Branch: {{ cinema_movie.branch.branch_name }}</p>
+            <p>Branch: {{ cinema_movie.cinema_ID.branch.branch_name }}</p>
             <p>Showtimes: {{ cinema_movie.showtimes }}</p>
-            <button class="book-now-btn"><a href="{% url 'booknow' %}">Book Now</a></button>
+            <button class="book-now-btn" onclick="openModal('{{ cinema_movie.id }}', '{{ cinema_movie.movie_ID.title }}', '{{ cinema_movie.cinema_ID.cinema_name }}', '{{ cinema_movie.cinema_ID.branch.branch_name }}', '{{ cinema_movie.showtimes }}')">Book Now</button>
         </div>
     {% endfor %}
+</div>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Confirm Booking</h2>
+        <div class="modal-body">
+            <div class="modal-left">
+                <p id="modal-movie-title"></p>
+                <p id="modal-cinema-name"></p>
+                <p id="modal-branch-name"></p>
+                <p id="modal-showtimes"></p>
+            </div>
+            <div class="modal-right">
+                <form id="bookingForm" onsubmit="generateTicket(event)">
+                    {% csrf_token %}
+                    <input type="hidden" id="cinema_movie_id" name="cinema_movie_id" value="">
+                    <p>
+                        <label for="seat_no">Seat No:</label>
+                        <input type="text" id="seat_no" name="seat_no" required>
+                    </p>
+                    <p>
+                        <label for="payment_method">Payment Method:</label>
+                        <select id="payment_method" name="payment_method" required>
+                            <option value="Gcash">Gcash</option>
+                            <option value="Paymaya">Paymaya</option>
+                            <option value="Over the Counter">Over the Counter</option>
+                        </select>
+                    </p>
+                    <button type="submit" class="save-btn">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ticket Modal -->
+<div id="ticketModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTicketModal()">&times;</span>
+        <h2>Booking Ticket</h2>
+        <div class="ticket-body">
+            <div class="ticket-details">
+                <p id="ticket-number"></p>
+                <p id="ticket-movie-title"></p>
+                <p id="ticket-cinema-name"></p>
+                <p id="ticket-branch-name"></p>
+                <p id="ticket-showtimes"></p>
+                <p id="ticket-seat-no"></p>
+                <p id="ticket-payment-method"></p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -17,63 +80,7 @@
         font-family: Arial, sans-serif;
         background-color: #1c1e1e;
         color: #ffffff;
-    }
-
-    header {
-        background-color: #2b2b2b;
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    header h1 {
-        font-size: 2.5rem;
-        color: #ffffff;
-        margin: 0;
-    }
-
-    nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 20px 0 0;
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    nav a {
-        text-decoration: none;
-        font-size: 1rem;
-        color: #ffffff;
-        padding: 10px 15px;
-        background-color: #4b4726;
-        border-radius: 5px;
-        font-weight: bold;
-    }
-
-    nav a:hover {
-        background-color: #6e6b46;
-    }
-
-    main {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-        background-color: #2b2b2b;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    main h2 {
-        font-size: 2rem;
-        color: #ffa500;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    main p {
-        font-size: 1rem;
-        line-height: 1.5;
+        padding-top: 100px; /* Add padding to avoid overlap with navbar */
     }
 
     .card-container {
@@ -121,31 +128,219 @@
         background-color: #ffb732;
     }
 
-    footer {
-        text-align: center;
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                    url('{% static "assets/bglanding.jpg" %}') center/cover no-repeat;
+        margin: 5% auto;
         padding: 20px;
-        background-color: #2b2b2b;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-body {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .modal-left, .modal-right {
+        width: 48%;
+    }
+
+    .modal-left p {
+        font-size: 1rem;
+        margin: 10px 0;
+    }
+
+    .modal-right p {
+        font-size: 1rem;
+        margin: 10px 0;
+    }
+
+    .modal-right select, .modal-right input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #888;
+        background-color: #1c1e1e;
         color: #ffffff;
-        margin-top: 40px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .save-btn {
+        background-color: #ffa500;
+        color: #1c1e1e;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .save-btn:hover {
+        background-color: #ffb732;
+    }
+
+    .ticket-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .ticket-details {
+        color: #000;
+        font-size: 1.2rem;
+    }
+
+    .ticket-details p {
+        margin: 5px 0;
+    }
+
+    .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: fixed; /* Change to fixed */
+        top: 0px;
+        width: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 1.0), rgba(0, 0, 0, 0));
+        padding: 10px 20px; /* Optional: for some inner spacing */
+        height: 100px;
+        z-index: 1000; /* Ensure it stays on top */
     }
 
-    footer .logout-btn {
-        background-color: #d9534f;
-        color: #fff;
-        text-decoration: none;
+    .navbar .logo {
+        font-size: 2.0rem;
+        color: white;
         font-weight: bold;
-        padding: 10px 20px;
-        border-radius: 5px;
+        margin-left: 10px;
     }
 
-    footer .logout-btn:hover {
-        background-color: #c9302c;
-    }
-
-    span {
+    .navbar .logo span {
         color: #ffa500;
     }
+
+    .navbar .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+
+    .navbar .nav-links li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: color 0.3s;
+    }
+
+    .navbar .nav-links li a:hover {
+        color: #ffa500;
+    }
+
+    .navbar .sign-up-btn {
+        background-color: #ffa500;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 10px;
+    }
+
+    .navbar .sign-up-btn:hover {
+        background-color: #e69500;
+    }
 </style>
+
+<script>
+    function openModal(cinemaMovieId, movieTitle, cinemaName, branchName, showtimes) {
+        document.getElementById('cinema_movie_id').value = cinemaMovieId;
+        document.getElementById('modal-movie-title').innerText = 'Movie: ' + movieTitle;
+        document.getElementById('modal-cinema-name').innerText = 'Cinema: ' + cinemaName;
+        document.getElementById('modal-branch-name').innerText = 'Branch: ' + branchName;
+        document.getElementById('modal-showtimes').innerText = 'Showtimes: ' + showtimes;
+        document.getElementById('bookingModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('bookingModal').style.display = 'none';
+    }
+
+    function closeTicketModal() {
+        document.getElementById('ticketModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('bookingModal')) {
+            closeModal();
+        }
+        if (event.target == document.getElementById('ticketModal')) {
+            closeTicketModal();
+        }
+    }
+
+    function generateTicket(event) {
+        event.preventDefault();
+        const movieTitle = document.getElementById('modal-movie-title').innerText;
+        const cinemaName = document.getElementById('modal-cinema-name').innerText;
+        const branchName = document.getElementById('modal-branch-name').innerText;
+        const showtimes = document.getElementById('modal-showtimes').innerText;
+        const seatNo = document.getElementById('seat_no').value;
+        const paymentMethod = document.getElementById('payment_method').value;
+
+        const ticketNumber = Math.floor(1000 + Math.random() * 9000);
+
+        document.getElementById('ticket-number').innerText = 'Ticket No: ' + ticketNumber;
+        document.getElementById('ticket-movie-title').innerText = movieTitle;
+        document.getElementById('ticket-cinema-name').innerText = cinemaName;
+        document.getElementById('ticket-branch-name').innerText = branchName;
+        document.getElementById('ticket-showtimes').innerText = showtimes;
+        document.getElementById('ticket-seat-no').innerText = 'Seat No: ' + seatNo;
+        document.getElementById('ticket-payment-method').innerText = 'Payment Method: ' + paymentMethod;
+
+        closeModal();
+        document.getElementById('ticketModal').style.display = 'block';
+    }
+</script>

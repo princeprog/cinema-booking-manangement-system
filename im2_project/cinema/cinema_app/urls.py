@@ -48,11 +48,7 @@ urlpatterns = [
     path('login/', views.login_view, name='loginform'),
     path('', views.landing_page, name='landing_page'),
     path('home/', views.home_page, name='home_page'),
-    path('movies/', views.movie_list, name='movie_list'),
-    path('showtimes/', views.showtime, name='showtime'),
-    path('booknow/', views.booknow, name='booknow'),
 
     # Admin dashboard
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
-
 ]

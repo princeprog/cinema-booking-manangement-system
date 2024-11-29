@@ -71,3 +71,18 @@ class BookingForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Enter date'}),
             'time': forms.TimeInput(attrs={'class': 'form-control', 'placeholder': 'Enter time'}),
         }
+
+class CustomerSignupForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm password'}))
+
+    class Meta:
+        model = Customer
+        fields = ['username', 'firstname', 'lastname', 'age', 'address', 'password', 'confirm_password']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username'}),
+            'firstname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first name'}),
+            'lastname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter last name'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter age'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter address'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password'}),
+        }

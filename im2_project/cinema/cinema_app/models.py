@@ -41,12 +41,12 @@ class Cinema_Movie(models.Model):
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=150, default='defaultusername')  
+    username = models.CharField(max_length=150)  
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     age = models.PositiveBigIntegerField()
     address = models.CharField(max_length=255)
-    password = models.CharField(max_length=128, default='defaultpassword')   
+    password = models.CharField(max_length=128)   
 
     def __str__(self):
         return self.username

@@ -2,7 +2,9 @@ from urllib import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, JsonResponse
 from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer, Booking
-from .forms import GenreForm, MovieForm, BranchForm, CinemaForm, CinemaMovieForm, CustomerForm, BookingForm
+from .forms import GenreForm, MovieForm, BranchForm, CinemaForm, CinemaMovieForm, CustomerForm, BookingForm, CustomerSignupForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 # Create your views here.
 def branch_list(request):
@@ -287,3 +289,41 @@ def showtime(request):
 # Book now User Side
 def booknow(request):
     return render(request, 'user-side/booknow.html')
+
+def admin_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            return render(request, 'admin_login.html', {'error': 'Invalid username or password'})
+    return render(request, 'admin_login.html')
+
+def admin_signup(request):
+    if request.method == 'POST':
+        form = CustomerSignupForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
+            if password != confirm_password:
+                form.add_error('confirm_password', 'Passwords do not match')
+            elif User.objects.filter(username=username).exists():
+                form.add_error('username', 'Username is already taken')
+            else:
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+                customer = form.save(commit=False)
+                customer.password = user.password  # Save the hashed password
+                customer.save()
+                return redirect('admin_login')
+    else:
+        form = CustomerSignupForm()
+    return render(request, 'admin_signup.html', {'form': form})
+
+def admin_logout(request):
+    logout(request)
+    return redirect('admin_login')

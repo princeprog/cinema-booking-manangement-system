@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        .signup-container {
+            background-color: #292929;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        .signup-container h2 {
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+        .signup-container .form-group {
+            margin-bottom: 15px;
+        }
+        .signup-container .form-control {
+            background-color: #3a3a3a;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+        }
+        .signup-container .form-control:focus {
+            box-shadow: 0 0 8px #007bff;
+        }
+        .signup-container .btn-primary {
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .signup-container .btn-primary:hover {
+            background-color: #e6b800;
+        }
+        .login-link {
+            margin-top: 10px;
+            text-align: center;
+            color: #aaaaaa;
+        }
+        .login-link a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+        .text-danger {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Admin Signup</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.firstname }}
+                    {% for error in form.firstname.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.lastname }}
+                    {% for error in form.lastname.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.username }}
+                {% for error in form.username.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.age }}
+                    {% for error in form.age.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.address }}
+                    {% for error in form.address.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.password }}
+                {% for error in form.password.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.confirm_password }}
+                {% for error in form.confirm_password.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+        </form>
+        <p class="login-link">
+            Already have an account? <a href="{% url 'admin_login' %}">Login</a>
+        </p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

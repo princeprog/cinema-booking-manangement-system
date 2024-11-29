@@ -15,7 +15,7 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
-
+    
 class Branch(models.Model):
     branch_ID = models.AutoField(primary_key=True)
     branch_name = models.CharField(max_length=100)
@@ -40,13 +40,18 @@ class Cinema_Movie(models.Model):
         return f"{self.movie_ID.title} at {self.cinema_ID.cinema_name}"
 
 class Customer(models.Model):
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('user', 'User'),
+    ]
     customer_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=150)  
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     age = models.PositiveBigIntegerField()
     address = models.CharField(max_length=255)
-    password = models.CharField(max_length=128)   
+    password = models.CharField(max_length=128)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
 
     def __str__(self):
         return self.username

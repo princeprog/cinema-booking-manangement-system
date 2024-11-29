@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1c1e1e;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .success-container {
+            text-align: center;
+            background-color: #292929;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .success-container h1 {
+            color: #ffa500;
+            margin-bottom: 20px;
+        }
+        .success-container p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .success-container a {
+            color: #ffa500;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .success-container a:hover {
+            color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <h1>Booking Successful!</h1>
+        <p>Your booking has been successfully completed.</p>
+        <a href="{% url 'landing_page' %}">Go to Home</a>
+    </div>
+</body>
+</html>

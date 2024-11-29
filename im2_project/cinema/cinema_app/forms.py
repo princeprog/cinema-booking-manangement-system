@@ -1,5 +1,5 @@
 from django import forms
-from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer, Booking
+from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer, Booking, Seats
 
 class GenreForm(forms.ModelForm):
     class Meta:
@@ -50,7 +50,7 @@ class CinemaMovieForm(forms.ModelForm):
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['firstname', 'lastname', 'username', 'password', 'age', 'address']
+        fields = ['firstname', 'lastname', 'username', 'password', 'age', 'address', 'role']
         widgets = {
             'firstname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first name'}),
             'lastname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter last name'}),
@@ -58,6 +58,7 @@ class CustomerForm(forms.ModelForm):
             'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password'}),
             'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter age'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter address'}),
+            'role': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class BookingForm(forms.ModelForm):
@@ -77,7 +78,7 @@ class CustomerSignupForm(forms.ModelForm):
 
     class Meta:
         model = Customer
-        fields = ['username', 'firstname', 'lastname', 'age', 'address', 'password', 'confirm_password']
+        fields = ['username', 'firstname', 'lastname', 'age', 'address', 'password', 'confirm_password', 'role']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username'}),
             'firstname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first name'}),
@@ -85,4 +86,13 @@ class CustomerSignupForm(forms.ModelForm):
             'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter age'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter address'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password'}),
+            'role': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class SeatForm(forms.ModelForm):
+    class Meta:
+        model = Seats
+        fields = ['seat_no']
+        widgets = {
+            'seat_no': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter seat number'}),
         }

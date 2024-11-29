@@ -34,6 +34,12 @@ urlpatterns = [
     path('cinema_movies/<int:pk>/edit/', views.cinema_movie_update, name='cinema_movie_update'),
     path('cinema_movies/<int:pk>/delete/', views.cinema_movie_delete, name='cinema_movie_delete'),
 
+    # URL patterns for seats
+    path('seats/', views.seat_list, name='seat_list'),
+    path('seats/new/', views.seat_create, name='seat_create'),
+    path('seats/<int:pk>/edit/', views.seat_update, name='seat_update'),
+    path('seats/<int:pk>/delete/', views.seat_delete, name='seat_delete'),
+
     # Paths for customer display, delete, update, read
     path('signup/', views.signup_view, name='signup'),
     path('customer-success/', views.customer_success, name='customer_success'),
@@ -45,6 +51,9 @@ urlpatterns = [
     path('bookings/create/', views.create_booking, name='create_booking'),
     path('bookings/<int:booking_id>/update/', views.update_booking, name='update_booking'),
     path('bookings/<int:booking_id>/delete/', views.delete_booking, name='delete_booking'),
+    path('bookings/<int:cinema_movie_id>/book/', views.booking, name='booking'),
+    path('booking-success/', views.booking_success, name='booking_success'),
+    path('payment/<int:cinema_movie_id>/', views.payment, name='payment'),
 
     # User side
     path('signup/', views.signup_view, name='signupform'),
@@ -56,7 +65,10 @@ urlpatterns = [
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
 
     # Admin login and signup
-    path('admin-login/', views.admin_login, name='admin_login'),
+    path('admin-login/', views.login_view, name='admin_login'),
     path('admin-signup/', views.admin_signup, name='admin_signup'),
     path('admin-logout/', views.admin_logout, name='admin_logout'),
+
+    # Showtimes
+    path('showtimes/', views.showtimes, name='showtimes'),
 ]

@@ -1,10 +1,11 @@
 from urllib import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, JsonResponse
-from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer, Booking
-from .forms import GenreForm, MovieForm, BranchForm, CinemaForm, CinemaMovieForm, CustomerForm, BookingForm, CustomerSignupForm
+from .models import Genre, Movie, Branch, Cinema, Cinema_Movie, Customer, Seats, Booking
+from .forms import GenreForm, MovieForm, BranchForm, CinemaForm, CinemaMovieForm, CustomerForm, BookingForm, CustomerSignupForm, SeatForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your views here.
 def branch_list(request):
@@ -279,7 +280,20 @@ def delete_booking(request, booking_id):
 
 # Login view
 def login_view(request):
-    return render(request, 'user-side/login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            customer = Customer.objects.get(username=username)
+            if customer.role == 'admin':
+                return redirect('admin_dashboard')
+            else:
+                return redirect('landing_page')
+        else:
+            return render(request, 'admin_login.html', {'error': 'Invalid username or password'})
+    return render(request, 'admin_login.html')
 
 #  Showtimes/User side
 def showtime(request):
@@ -297,7 +311,11 @@ def admin_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            customer = Customer.objects.get(username=username)
+            if customer.role == 'admin':
+                return redirect('admin_dashboard')
+            else:
+                return redirect('home_page')
         else:
             return render(request, 'admin_login.html', {'error': 'Invalid username or password'})
     return render(request, 'admin_login.html')
@@ -327,3 +345,78 @@ def admin_signup(request):
 def admin_logout(request):
     logout(request)
     return redirect('admin_login')
+
+def showtimes(request):
+    cinema_movies = Cinema_Movie.objects.select_related('movie_ID', 'cinema_ID').all()
+    return render(request, 'showtimes.html', {'cinema_movies': cinema_movies})
+
+def seat_list(request):
+    seats = Seats.objects.all()
+    if request.method == 'POST':
+        # Automatically generate the next seat number
+        last_seat = Seats.objects.order_by('seat_no').last()
+        next_seat_no = last_seat.seat_no + 1 if last_seat else 1
+        seat = Seats(seat_no=next_seat_no)
+        seat.save()
+        return redirect('seat_list')
+    return render(request, 'seats/seat_list.html', {'seats': seats})
+
+def seat_create(request):
+    if request.method == 'POST':
+        form = SeatForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('seat_list')
+    else:
+        form = SeatForm()
+    return render(request, 'seats/seat_form.html', {'form': form})
+
+def seat_update(request, pk):
+    seat = get_object_or_404(Seats, pk=pk)
+    if request.method == 'POST':
+        form = SeatForm(request.POST, instance=seat)
+        if form.is_valid():
+            form.save()
+            return redirect('seat_list')
+    else:
+        form = SeatForm(instance=seat)
+    return render(request, 'seats/seat_form.html', {'form': form})
+
+def seat_delete(request, pk):
+    seat = get_object_or_404(Seats, pk=pk)
+    if request.method == 'POST':
+        seat.delete()
+        return redirect('seat_list')
+    return render(request, 'seats/seat_confirm_delete.html', {'seat': seat})
+
+def booking(request, cinema_movie_id):
+    cinema_movie = get_object_or_404(Cinema_Movie, pk=cinema_movie_id)
+    seats = Seats.objects.all()
+    if request.method == 'POST':
+        showtime = request.POST['showtime']
+        seat = request.POST['seat']
+        # Handle booking logic here
+        return redirect('booking_success')
+    return render(request, 'booking.html', {'cinema_movie': cinema_movie, 'seats': seats})
+
+def booking_success(request):
+    return render(request, 'booking_success.html')
+
+def payment(request, cinema_movie_id):
+    cinema_movie = get_object_or_404(Cinema_Movie, pk=cinema_movie_id)
+    seats = Seats.objects.all()
+    if request.method == 'POST':
+        seat_id = request.POST.get('seat')
+        payment_method = request.POST.get('payment_method')
+        customer = Customer.objects.get(username=request.user.username)
+        seat = get_object_or_404(Seats, pk=seat_id)
+        booking = Booking(
+            cinema_movie_id=cinema_movie,
+            customer_id=customer,
+            seat_no=seat,
+            date=timezone.now().date(),
+            time=timezone.now().time()
+        )
+        booking.save()
+        return redirect('booking_success')
+    return render(request, 'payment.html', {'cinema_movie': cinema_movie, 'seats': seats})

@@ -50,6 +50,17 @@
         .btn-primary:hover {
             background-color: #e6b800;
         }
+
+        .back {
+            background-color: #ffa500;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            color: aliceblue;
+        }
+        .back:hover {
+            background-color: #e6b800;
+        }
     </style>
 </head>
 <body>
@@ -74,6 +85,7 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            <button class="back"><a href="{% url 'showtimes' %}" class="logout-btn">ShowTimes</a></button>
         </form>
     </div>
 </body>

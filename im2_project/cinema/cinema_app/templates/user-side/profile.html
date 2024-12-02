@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            margin: 0;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #1c1e1e;
+            color: #ffffff;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #2b2b2b;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .profile-header h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: #ffa500;
+        }
+
+        .booking-history {
+            margin-top: 20px;
+        }
+
+        .booking-history h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffa500;
+        }
+
+        .booking-history a {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .booking-history table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .booking-history th, .booking-history td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .booking-history th {
+            background-color: #f8f8f8;
+            color: #1c1e1e;
+        }
+
+        .booking-history td {
+            background-color: #2b2b2b;
+        }
+
+        .sign-up-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .sign-up-btn a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .return-arrow {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .return-arrow:hover {
+            background-color: #0056b3;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #2b2b2b;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content h2 {
+            color: #ffa500;
+        }
+
+        .modal-content input[type="file"] {
+            display: block;
+            margin: 20px 0;
+        }
+
+        .modal-content button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<a href="{% url 'landing_page' %}" class="return-arrow">&#8592; Back to Home</a>
+<body>
+    <div class="profile-container">
+        
+        <div class="profile-header">
+            <img src="{% static 'assets/profile1.jpg' %}" alt="Profile Picture" class="profile-picture" id="profile-picture">
+            <h1>{{ user.username }}</h1>
+        </div>
+        <div class="booking-history">
+            <h2>Booking History</h2>
+            
+            <table>
+                <tr>
+                    <th>Movie</th>
+                    <th>Seat No</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.cinema_movie_id }}</td>
+                    <td>{{ booking.seat_no }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <button class="sign-up-btn">
+            <a href="{% url 'loginform' %}">Log out</a>
+        </button>
+        
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Update Profile Picture</h2>
+            <form id="profile-picture-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" id="profile-picture-input" name="profile_picture" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the image and insert it inside the modal
+        var img = document.getElementById("profile-picture");
+        var span = document.getElementsByClassName("close")[0];
+
+        img.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -6,6 +6,7 @@ from .forms import GenreForm, MovieForm, BranchForm, CinemaForm, CinemaMovieForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def branch_list(request):
@@ -47,7 +48,8 @@ def home_page(request):
     return render(request, 'home.html')
 
 def landing_page(request):
-    return render(request, 'landing.html')
+    cinemas = Cinema.objects.all()
+    return render(request, 'landing.html', {'cinemas': cinemas})
 
 def admin_dashboard(request):
     return render(request, 'admin/admin.html')
@@ -295,6 +297,20 @@ def login_view(request):
             return render(request, 'admin_login.html', {'error': 'Invalid username or password'})
     return render(request, 'admin_login.html')
 
+@login_required
+def profile_view(request):
+    user = request.user
+    # profile_picture = user.profile.profile_picture  # Assuming you have a profile model with a profile_picture field
+    bookings = Booking.objects.all()
+    # return render(request, 'cinema_app/booking_list.html', {'bookings': bookings})
+
+    context = {
+        'user': user,
+        # 'profile_picture': profile_picture,
+        'bookings': bookings,
+    }
+    return render(request, 'user-side/profile.html', {'bookings': bookings})
+
 #  Showtimes/User side
 def showtime(request):
     cinema_movies = Cinema_Movie.objects.all()
@@ -420,3 +436,9 @@ def payment(request, cinema_movie_id):
         booking.save()
         return redirect('booking_success')
     return render(request, 'payment.html', {'cinema_movie': cinema_movie, 'seats': seats})
+
+def aboutus(request):
+    return render(request, 'aboutus.html')
+
+def contact(request):
+    return render(request, 'contact.html')

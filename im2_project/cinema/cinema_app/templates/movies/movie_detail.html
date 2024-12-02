@@ -82,6 +82,7 @@
 <p><strong>Description:</strong> {{ movie.description }}</p>
 <p><strong>Genre:</strong> {{ movie.genre.name }}</p>
 
+
 <div class="actions">
     <a href="{% url 'movie_update' movie.pk %}">Edit</a>
     <a href="{% url 'movie_delete' movie.pk %}">Delete</a>

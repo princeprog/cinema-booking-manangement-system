@@ -59,6 +59,9 @@ class Customer(models.Model):
 class Seats(models.Model):  
     seat_no = models.AutoField(primary_key=True)
 
+    def __str__(self):
+        return str(self.seat_no)
+
 class Booking(models.Model):
     booking_Id = models.AutoField(primary_key=True)
     cinema_movie_id = models.ForeignKey(Cinema_Movie, on_delete=models.CASCADE)

@@ -131,29 +131,64 @@
         }
 
         .cinema-select {
-            font-size: 1rem;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: transparent;
+        font-size: 1rem;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #2b2b2b; /* Changed background color for better visibility */
+        color: #ffffff;
+        cursor: pointer;
+        margin-top: 20px; /* Adds spacing between the paragraph and select dropdown */
+        border: 2px solid #ffffff;
+    }
+
+    .cinema-select option {
+        background-color: #2b2b2b; /* Background color for options */
+        color: #ffffff; /* Text color for options */
+        padding: 10px; /* Padding for options */
+    }
+
+    .cinema-select option:hover {
+        background-color: #3b3b3b; /* Hover background color for options */
+    }
+        .profile-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
             color: #ffffff;
-            cursor: pointer;
-            margin-top: 20px; /* Adds spacing between the paragraph and select dropdown */
-            border: 2px solid #ffffff; 
+        }
+
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            opacity: 0.8;
         }
 
     </style>
+    <script>
+        function redirectToShowtimes(select) {
+            var cinemaId = select.value;
+            if (cinemaId !== "all") {
+                window.location.href = "{% url 'showtimes' %}?cinema_id=" + cinemaId;
+            }
+        }
+    </script>
 </head>
 <body>
     <header class="hero-section">
         <nav class="navbar">
             <div class="logo"><span>C</span>ine<span>C</span>ity</div>
             <ul class="nav-links">
-                <li><a href="{% url 'landing_page' %}">Home</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="{% url 'landing_page' %}" style="color: #e69500;" >Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
                 <li><a href="{% url 'showtimes' %}">Showtimes</a></li>
+                <li><a href="{% url 'contact' %}">Contact Us</a></li>
             </ul>
-            <button class="sign-up-btn"><a href="{% url 'loginform' %}">Log out</a></button>
+            <a href="{% url 'user_profile' %}" class="profile-link">
+                <img src="{% static 'assets/profile1.jpg' %}" alt="Profile Picture" class="profile-picture">
+            </a>
         </nav>
         <div class="hero-content">
             <div class="left-half">
@@ -161,11 +196,11 @@
             </div>
             <div class="right-half">
                 <p>Your One-Stop Ticket to the Best Showtimes, <br> Reservations, <br> and Cinema Updates in Cebu!</p>
-                <select class="cinema-select">
+                <select class="cinema-select" onchange="redirectToShowtimes(this)">
                     <option value="all">All Cinemas</option>
-                    <option value="cinema1">Cinema 1</option>
-                    <option value="cinema2">Cinema 2</option>
-                    <option value="cinema3">Cinema 3</option>
+                    {% for cinema in cinemas %}
+                        <button><a href="{% url 'showtimes' %}"><option value="{{ cinema.id }}">{{ cinema.cinema_name }}</option></a></button>
+                    {% endfor %}
                 </select>
             </div>
         </div>

@@ -60,6 +60,7 @@ urlpatterns = [
     path('login/', views.login_view, name='loginform'),
     path('', views.landing_page, name='landing_page'),
     path('home/', views.home_page, name='home_page'),
+    path('profile/', views.profile_view, name='user_profile'),
 
     # Admin dashboard
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
@@ -71,4 +72,6 @@ urlpatterns = [
 
     # Showtimes
     path('showtimes/', views.showtimes, name='showtimes'),
+
+    path('about/', views.aboutus, name='about'),
 ]

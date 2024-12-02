@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            margin: 0;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #1c1e1e;
+            color: #ffffff;
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background-color: #2b2b2b;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .about-header h1 {
+            font-size: 2.5rem;
+            color: #ffa500;
+            margin: 0;
+        }
+
+        .about-content {
+            margin-bottom: 40px;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            color: #ffa500;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .developer {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .developer:hover {
+            transform: scale(1.05);
+        }
+
+        .developer img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+            border: 2px solid #ffa500;
+        }
+
+        .developer h2 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: #ffa500;
+        }
+
+        .developer p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .return-arrow {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .return-arrow:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <a href="{% url 'landing_page' %}" class="return-arrow">&#8592; Back to Home</a>
+        <div class="about-header">
+            <h1>About Us</h1>
+        </div>
+        <div class="about-content">
+            <h2>About CineCity</h2>
+            <p>CineCity is your ultimate destination for the best movie experiences in Cebu. We offer a wide range of showtimes, easy reservations, and the latest updates on cinema events. Our mission is to provide moviegoers with a seamless and enjoyable experience, from booking tickets to enjoying the show.</p>
+            <p>At CineCity, we believe in the magic of movies and strive to bring that magic to our audience. Whether you're looking for the latest blockbuster or a classic film, we have something for everyone. Join us and be a part of the CineCity community!</p>
+        </div>
+        <div class="about-header">
+            <h1>Meet the Developers</h1>
+        </div>
+        <div class="developer">
+            <img src="{% static 'assets/prince.jpg' %}" alt="Alprince Llavan">
+            <div>
+                <h2>Alprince Llavan</h2>
+                <p>Lead Developer</p>
+            </div>
+        </div>
+        <div class="developer">
+            <img src="{% static 'assets/yong.jpg' %}" alt="Michael Yong">
+            <div>
+                <h2>Michael Yong</h2>
+                <p>Backend Developer</p>
+            </div>
+        </div>
+        <div class="developer">
+            <img src="{% static 'assets/paul.jpg' %}" alt="Vincent Dumangcas">
+            <div>
+                <h2>Vincent Dumangcas</h2>
+                <p>Frontend Developer</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -5,19 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinema Landing Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* General Styles */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #1c1e1e;
-            color: #1d1b1b;
+            color: #ffffff;
             height: 100%;
             width: 100%;
             min-height: 100vh; 
             overflow-x: hidden; 
-            overflow-y: hidden; 
             display: flex; 
             flex-direction: column; 
         }
@@ -90,7 +89,7 @@
         }
 
         .navbar .sign-up-btn:hover {
-            background-color: #e69500;
+            background-color: #e6b800;
         }
 
         /* Hero Content */
@@ -199,7 +198,7 @@
                 <select class="cinema-select" onchange="redirectToShowtimes(this)">
                     <option value="all">All Cinemas</option>
                     {% for cinema in cinemas %}
-                        <button><a href="{% url 'showtimes' %}"><option value="{{ cinema.id }}">{{ cinema.cinema_name }}</option></a></button>
+                        <option value="{{ cinema.id }}">{{ cinema.cinema_name }}</option>
                     {% endfor %}
                 </select>
             </div>

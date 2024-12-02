@@ -300,16 +300,12 @@ def login_view(request):
 @login_required
 def profile_view(request):
     user = request.user
-    # profile_picture = user.profile.profile_picture  # Assuming you have a profile model with a profile_picture field
-    bookings = Booking.objects.all()
-    # return render(request, 'cinema_app/booking_list.html', {'bookings': bookings})
-
+    bookings = Booking.objects.filter(customer_id__username=user.username)
     context = {
         'user': user,
-        # 'profile_picture': profile_picture,
         'bookings': bookings,
     }
-    return render(request, 'user-side/profile.html', {'bookings': bookings})
+    return render(request, 'user-side/profile.html', context)
 
 #  Showtimes/User side
 def showtime(request):

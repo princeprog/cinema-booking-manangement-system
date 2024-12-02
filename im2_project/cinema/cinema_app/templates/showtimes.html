@@ -143,7 +143,9 @@
         <div class="logo"><span>C</span>ine<span>C</span>ity</div>
         <a href="{% url 'landing_page' %}">Home</a>
         <a href="{% url 'about' %}">About Us</a>
+        <a href="{% url 'showtimes' %}" style="color: #ffa500;">ShowTimes</a>
         <a href="{% url 'contact' %}">Contact Us</a>
+        
         
     </div>
     <div class="content">
@@ -153,7 +155,7 @@
                 <div class="card">
                     <h3>Movie: {{ cinema_movie.movie_ID.title }}</h3>
                     <p>Cinema: {{ cinema_movie.cinema_ID.cinema_name }}</p>
-                    <p>Branch: {{ cinema_movie.branch.branch_name }}</p>
+                    <p>Branch: {{ cinema_movie.cinema_ID.branch.branch_name }}</p>
                     <p>Showtimes: {{ cinema_movie.showtimes }}</p>
                     <button class="book-now-btn"><a href="{% url 'payment' cinema_movie.pk %}">Book Now</a></button>
                 </div>

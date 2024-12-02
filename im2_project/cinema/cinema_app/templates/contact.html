@@ -23,6 +23,7 @@
             background: linear-gradient(to bottom, rgba(0, 0, 0, 1.0), rgba(0, 0, 0, 0));
             padding: 10px 20px;
             height: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .navbar .logo {
@@ -145,28 +146,26 @@
         .right-half {
             margin: 20px;
             border-radius: 15px;
-            overflow: hidden; /* Ensures the image stays within rounded corners */
+            overflow: hidden; /* Ensure the image stays within the border radius */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%; /* Allow container to grow vertically */
         }
 
         .right-half img {
-            width: 100%; /* Take full width of the container */
-            height: 100%; /* Take full height of the container */
-            max-width: none; /* Remove limits on width */
-            max-height: none; /* Remove limits on height */
-            object-fit: cover; /* Scale to fill the box without distortion */
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            max-width: 150%; /* Make the image larger */
+            max-height: 150%; /* Make the image larger */
+            object-fit: cover;
             cursor: pointer;
             transition: transform 0.3s;
         }
 
         .right-half img:hover {
-            transform: scale(1.1); /* Slight zoom-in on hover */
+            transform: scale(1.05);
         }
-
     </style>
 </head>
 <body>
@@ -176,6 +175,7 @@
             <li><a href="{% url 'landing_page' %}">Home</a></li>
             <li><a href="{% url 'about' %}">About Us</a></li>
             <li><a href="{% url 'showtimes' %}">Showtimes</a></li>
+            <li><a href="{% url 'contact' %}" style="color: #ffa500;">Contact Us</a></li>
         </ul>
     </div>
     <div class="container">

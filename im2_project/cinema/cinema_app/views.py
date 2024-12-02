@@ -439,3 +439,6 @@ def payment(request, cinema_movie_id):
 
 def aboutus(request):
     return render(request, 'aboutus.html')
+
+def contact(request):
+    return render(request, 'contact.html')

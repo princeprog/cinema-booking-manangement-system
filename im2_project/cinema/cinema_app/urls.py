@@ -74,4 +74,5 @@ urlpatterns = [
     path('showtimes/', views.showtimes, name='showtimes'),
 
     path('about/', views.aboutus, name='about'),
+    path('contact/', views.contact, name='contact'),
 ]
